@@ -113,14 +113,14 @@ returnArgumentsArray(1, 2, 3);
  */
 function sum(){
    var result = 0;
-   for(let i = 1; i < arguments[0].length; i++){
+   for(let i = 0; i < arguments[0].length; i++){
 	  result += arguments[0][i];
    }
    return result;
 }
 
-function bindFunction(fn) {
-   return fn.bind(null, arguments);
+function bindFunction(fn, ...arg) {
+   return fn.bind(null, arg);
 }
 
 var g = bindFunction(sum, 1, 2, 3, 4, 5, 6);
