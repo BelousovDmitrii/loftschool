@@ -57,10 +57,10 @@ function createProxy(obj) {
 }
 
 export {
-    forEach,
-    map,
-    reduce,
-    upperProps,
-    slice,
-    createProxy
+	forEach,
+	map,
+	reduce,
+	upperProps,
+	slice,
+	createProxy
 };
