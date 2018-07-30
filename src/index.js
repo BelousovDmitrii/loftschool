@@ -19,11 +19,11 @@ function forEach(array, fn) {
  Посмотрите как работает map и повторите это поведение для массива, который будет передан в параметре array
  */
 function map(array, fn) {
-		var copy_array = [];
+		var array2 = [];
 		for (var i = 0; i < array.length; i++) {
-				copy_array[i] = fn(array[i], i, array);
+				array2[i] = fn(array[i], i, array);
 		}
-		return copy_array;
+		return array2;
 }
 
 /*
