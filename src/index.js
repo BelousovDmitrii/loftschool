@@ -40,9 +40,9 @@ function reduce(array, fn, initial) {
  */
 function upperProps(obj) {
 	let properties = Object.keys(obj),
-		result = properties.map((property) => {
-			return property.toUpperCase();
-		});
+	   result = properties.map((property) => {
+		   return property.toUpperCase();
+	   });
 
 	return result;
 }
@@ -66,7 +66,7 @@ function slice(array, from, to) {
  */
 function createProxy(obj) {
 	let proxy = new Proxy(obj, {
-		set(target, prop, value){
+		set(target, prop, value) {
 			let result;
 			return result = Math.pow(value, 2);
 		}
