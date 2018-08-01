@@ -127,14 +127,12 @@ function calculator(number = 0) {
             for(let i = 0; restArg.length > i; i++) {
                 number+=restArg[i];
             }
-            console.log(number);
             return number;
         },
         dif: function () {
             for(let i = 0; restArg.length > i; i++) {
                 number-=restArg[i];
             }
-            console.log(number);
             return number;
         },
         div: function () {
@@ -144,18 +142,15 @@ function calculator(number = 0) {
                 }
                 number/=restArg[i];
             }
-            console.log(number);
             return number;
         },
         dif: function () {
             for(let i = 0; restArg.length > i; i++) {
                 number*=restArg[i];
             }
-            console.log(number);
             return number;
         }
     }
-    console.log(result);
     return result;
 }
 
