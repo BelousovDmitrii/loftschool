@@ -94,7 +94,7 @@ function isSomeTrue(array, fn) {
  */
 function returnBadArguments(fn) {
     var [fn, ...restArray] = arguments, errorArray = [];
-    if(typeof func != 'function'){
+    if(typeof fn != 'function'){
         throw new Error('fn is not a function');
     }
     for(let i = 0; i < restArray.length; i++){
@@ -103,8 +103,9 @@ function returnBadArguments(fn) {
         } catch (e){
             errorArray.push(restArray[i]);
         }
-        return errorArray;
     }
+    return errorArray;
+
 }
 
 /*
