@@ -93,10 +93,17 @@ function isSomeTrue(array, fn) {
    - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn) {
-    var [func, ...restMassive] = arguments;
-    for(let i = 0; i < restMassive.length; i++){
-        func(restMassive[i]);
-        console.log(typeof func);
+    var [fn, ...restArray] = arguments, errorArray = [];
+    if(typeof func != 'function'){
+        throw new Error('fn is not a function');
+    }
+    for(let i = 0; i < restArray.length; i++){
+        try{
+            fn(restArray[i]);
+        } catch (e){
+            errorArray.push(restArray[i]);
+        }
+        return errorArray;
     }
 }
 
@@ -144,7 +151,7 @@ function calculator(number = 0) {
             }
             return number;
         },
-        dif: function () {
+        mul: function () {
             for(let i = 0; restArg.length > i; i++) {
                 number*=restArg[i];
             }
