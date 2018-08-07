@@ -127,10 +127,10 @@ function deleteTextNodesRecursive(where) {
         let child = childList[i];
 
         if (child.nodeType === 3) {
-            where.removeChild(child); //удаляем ребенка
-            i--; // уменьшаем счетчик т.к. все сместилось
+            where.removeChild(child);
+            i--;
         } else if (child.nodeType === 1) {
-            deleteTextNodesRecursive(child); // вызываем рекурсию
+            deleteTextNodesRecursive(child);
         }
     }
 }
