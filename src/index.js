@@ -48,8 +48,18 @@ function prepend(what, where) {
    </dody>
 
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
- */
+*/
 function findAllPSiblings(where) {
+    var childList = where.children,
+        arrayElements = [];
+
+    for (let i = 0; childList.length > i; i++) {
+        if (i == childList.length - 1) {
+            return arrayElements;
+        } else if (childList[i].nextElementSibling.tagName === 'P') {
+            arrayElements.push(childList[i]);
+        }
+    }
 }
 
 /*
@@ -72,7 +82,7 @@ function findAllPSiblings(where) {
 function findError(where) {
     var result = [];
 
-    for (var child of where.childNodes) {
+    for (var child of where.children) {
         result.push(child.innerText);
     }
 
@@ -92,6 +102,13 @@ function findError(where) {
    должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
+    var childList = where.childNodes;
+
+    for(let i = 0; childList.length > i; i++){
+        if(childList[i].nodeType === 3){
+            where.removeChild(childList[i]);
+        }
+    }
 }
 
 /*
@@ -99,14 +116,23 @@ function deleteTextNodes(where) {
 
  Выполнить предудыщее задание с использование рекурсии - то есть необходимо заходить внутрь каждого дочернего элемента (углубляться в дерево)
 
- Задачу необходимо решить без использования рекурсии, то есть можно не уходить вглубь дерева.
- Так же будьте внимательны при удалении узлов, т.к. можно получить неожиданное поведение при переборе узлов
 
  Пример:
    После выполнения функции, дерево <span> <div> <b>привет</b> </div> <p>loftchool</p> !!!</span>
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
 function deleteTextNodesRecursive(where) {
+    var childList = where.childNodes;
+    for (let i = 0;  childList.length > i; i++) {
+        let child = childList[i];
+
+        if (child.nodeType === 3) {
+            where.removeChild(child); //удаляем ребенка
+            i--; // уменьшаем счетчик т.к. все сместилось
+        } else if (child.nodeType === 1) {
+            deleteTextNodesRecursive(child); // вызываем рекурсию
+        }
+    }
 }
 
 /*
