@@ -63,9 +63,9 @@ function emulateClick(target) {
  */
 function delegate(target, fn) {
     target.addEventListener('click', function (event) {
-        if(event.target.tagName === 'BUTTON'){
+        if (event.target.tagName === 'BUTTON') {
             fn();
-        } else{
+        } else {
             event.preventDefault();
         }
     })
@@ -84,15 +84,15 @@ function once(target, fn) {
     var isTry = false;
 
     target.addEventListener('click', function (e) {
-       if(!isTry){
-           fn();
-           isTry = true;
-       }else{
-           target.removeEventListener('click', function (e) {
-               fn();
-           })
-       }
-    })
+        if (!isTry) {
+            fn();
+            isTry = true;
+        } else {
+            target.removeEventListener('click', function (e) {
+                fn();
+            });
+        }
+    });
 }
 
 export {
