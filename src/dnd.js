@@ -29,14 +29,14 @@ const homeworkContainer = document.querySelector('#homework-container');
 function createDiv() {
     var sizeY = Math.round(Math.random() * (window.screen.availHeight)),
         sizeX = Math.round(Math.random() * (window.screen.availWidth)),
+        positionY = Math.round(Math.random() * (window.screen.availHeight)),
+        positionX = Math.round(Math.random() * (window.screen.availWidth)),
         r = Math.floor(Math.random() * (256)),
         g = Math.floor(Math.random() * (256)),
         b = Math.floor(Math.random() * (256)),
         c = '#' + r.toString(16) + g.toString(16) + b.toString(16),
-        dragDiv = document.createElement('div');
-/*
-Не работающий варинат, но очень хотелось бы что бы он заработал)
- var styles = {
+        dragDiv = document.createElement('div'),
+        styles = {
             position: 'absolute',
             left: positionX + 'px',
             top: positionY + 'px',
@@ -47,19 +47,9 @@ function createDiv() {
 
     dragDiv.classList.add('draggable-div');
 
-    for(let el in styles){
+    for (let el in styles) {
         dragDiv.style[el] = styles[el];
     }
-*/
-    dragDiv.classList.add('draggable-div');
-    dragDiv.style.position = 'absolute';
-
-    dragDiv.style.left = sizeX + 'px';
-    dragDiv.style.top = sizeY + 'px';
-
-    dragDiv.style.width = sizeX + 'px';
-    dragDiv.style.height = sizeY + 'px';
-    dragDiv.style.backgroundColor = c;
 
     return dragDiv;
 }
@@ -90,10 +80,15 @@ function addListeners(target) {
 
         document.addEventListener('mousemove', functionMove);
 
-        target.addEventListener('mouseup', () => { document.removeEventListener('mousemove', functionMove); });
+        target.addEventListener('mouseup', () => {
+            document.removeEventListener('mousemove', functionMove);
+        });
+
     });
 
-    target.addEventListener('ragstart', () => { return false; });
+    target.addEventListener('ragstart', () => {
+        return false;
+    });
 
     function getCoords(elem) {
         var box = elem.getBoundingClientRect();
@@ -107,7 +102,7 @@ function addListeners(target) {
 
 let addDivButton = homeworkContainer.querySelector('#addDiv');
 
-addDivButton.addEventListener('click', function() {
+addDivButton.addEventListener('click', function () {
     // создать новый div
     const div = createDiv();
 
