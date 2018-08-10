@@ -34,7 +34,22 @@ function createDiv() {
         b = Math.round(Math.random() * (256)),
         c = '#' + r.toString(16) + g.toString(16) + b.toString(16),
         dragDiv = document.createElement('div');
+/*
+ var styles = dragDiv.style = {
+            position: 'absolute',
+            left: positionX + 'px',
+            top: positionY + 'px',
+            width: sizeX + 'px',
+            height: sizeY + 'px',
+            backgroundColor: c
+        };
 
+    dragDiv.classList.add('draggable-div');
+
+    for(let el in styles){
+        dragDiv.style.el = styles[el];
+    }
+*/
     dragDiv.classList.add('draggable-div');
     dragDiv.style.position = 'absolute';
 
