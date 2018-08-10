@@ -27,6 +27,25 @@ const homeworkContainer = document.querySelector('#homework-container');
    homeworkContainer.appendChild(newDiv);
  */
 function createDiv() {
+    var sizeY = Math.round(Math.random() * (window.screen.availHeight)),
+        sizeX = Math.round(Math.random() * (window.screen.availWidth)),
+        r = Math.round(Math.random() * (256)),
+        g = Math.round(Math.random() * (256)),
+        b = Math.round(Math.random() * (256)),
+        c = '#' + r.toString(16) + g.toString(16) + b.toString(16),
+        dragDiv = document.createElement('div');
+
+    dragDiv.classList.add('draggable-div');
+    dragDiv.style.position = 'absolute';
+
+    dragDiv.style.left = sizeX + 'px';
+    dragDiv.style.top = sizeY + 'px';
+
+    dragDiv.style.width = sizeX + 'px';
+    dragDiv.style.height = sizeY + 'px';
+    dragDiv.style.backgroundColor = c;
+
+    return dragDiv;
 }
 
 /*
@@ -37,7 +56,37 @@ function createDiv() {
    homeworkContainer.appendChild(newDiv);
    addListeners(newDiv);
  */
+
 function addListeners(target) {
+
+    target.addEventListener('mousedown', function (e) {
+        var functionMove = (e) => moveAt(e),
+            coords = getCoords(target),
+            shiftX = e.pageX - coords.left,
+            shiftY = e.pageY - coords.top;
+
+        target.style.zIndex = 1000;
+
+        function moveAt(e) {
+            target.style.left = e.pageX - shiftX + 'px';
+            target.style.top = e.pageY - shiftY + 'px';
+        };
+
+        document.addEventListener('mousemove', functionMove);
+
+        target.addEventListener('mouseup', () => { document.removeEventListener('mousemove', functionMove); });
+    });
+
+    target.addEventListener('ragstart', () => { return false; });
+
+    function getCoords(elem) {
+        var box = elem.getBoundingClientRect();
+
+        return {
+            top: box.top + pageYOffset,
+            left: box.left + pageXOffset
+        };
+    }
 }
 
 let addDivButton = homeworkContainer.querySelector('#addDiv');
