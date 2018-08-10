@@ -48,7 +48,7 @@ function createDiv() {
     dragDiv.classList.add('draggable-div');
 
     for(let el in styles){
-        dragDiv.style.el = styles[el];
+        dragDiv.style[el] = styles[el];
     }
 */
     dragDiv.classList.add('draggable-div');
