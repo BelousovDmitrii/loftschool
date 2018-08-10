@@ -29,9 +29,9 @@ const homeworkContainer = document.querySelector('#homework-container');
 function createDiv() {
     var sizeY = Math.round(Math.random() * (window.screen.availHeight)),
         sizeX = Math.round(Math.random() * (window.screen.availWidth)),
-        r = Math.round(Math.random() * (256)),
-        g = Math.round(Math.random() * (256)),
-        b = Math.round(Math.random() * (256)),
+        r = Math.floor(Math.random() * (256)),
+        g = Math.floor(Math.random() * (256)),
+        b = Math.floor(Math.random() * (256)),
         c = '#' + r.toString(16) + g.toString(16) + b.toString(16),
         dragDiv = document.createElement('div');
 /*
