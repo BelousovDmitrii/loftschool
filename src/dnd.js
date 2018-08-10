@@ -35,7 +35,7 @@ function createDiv() {
         g = Math.floor(Math.random() * (256)),
         b = Math.floor(Math.random() * (256)),
         c = '#' + r.toString(16) + g.toString(16) + b.toString(16),
-        dragDiv = document.createElement('div'),
+        dragDiv = document.createElement('div').classList.add('draggable-div'),
         styles = {
             position: 'absolute',
             left: positionX + 'px',
@@ -45,8 +45,7 @@ function createDiv() {
             backgroundColor: c
         };
 
-    dragDiv.classList.add('draggable-div');
-
+   
     for (let el in styles) {
         dragDiv.style[el] = styles[el];
     }
