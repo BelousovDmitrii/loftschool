@@ -36,7 +36,7 @@ function createDiv() {
         dragDiv = document.createElement('div');
 /*
 Не работающий варинат, но очень хотелось бы что бы он заработал)
- var styles = dragDiv.style = {
+ var styles = {
             position: 'absolute',
             left: positionX + 'px',
             top: positionY + 'px',
