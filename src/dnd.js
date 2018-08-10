@@ -27,7 +27,27 @@ const homeworkContainer = document.querySelector('#homework-container');
    homeworkContainer.appendChild(newDiv);
  */
 function createDiv() {
+    var sizeY = Math.round(Math.random() * (window.screen.height)),
+        sizeX = Math.round(Math.random() * (window.screen.width)),
+        r = Math.round(Math.random() * (256)),
+        g = Math.round(Math.random() * (256)),
+        b = Math.round(Math.random() * (256)),
+        c = '#' + r.toString(16) + g.toString(16) + b.toString(16),
+        dragDiv = document.createElement('div');
+
+    dragDiv.classList.add('draggable-div');
+    dragDiv.style.position = 'absolute';
+
+    dragDiv.style.left = sizeX + 'px';
+    dragDiv.style.top = sizeY + 'px';
+
+    dragDiv.style.width = sizeX + 'px';
+    dragDiv.style.height = sizeY + 'px';
+    dragDiv.style.backgroundColor = c;
+
+    return dragDiv;
 }
+
 
 /*
  Функция должна добавлять обработчики событий для перетаскивания элемента при помощи drag and drop
@@ -37,6 +57,7 @@ function createDiv() {
    homeworkContainer.appendChild(newDiv);
    addListeners(newDiv);
  */
+
 function addListeners(target) {
 }
 
