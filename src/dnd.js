@@ -27,32 +27,28 @@ const homeworkContainer = document.querySelector('#homework-container');
    homeworkContainer.appendChild(newDiv);
  */
 function createDiv() {
-    var sizeY = Math.round(Math.random() * (window.screen.availHeight)),
-        sizeX = Math.round(Math.random() * (window.screen.availWidth)),
-        positionY = Math.round(Math.random() * (window.screen.availHeight)),
-        positionX = Math.round(Math.random() * (window.screen.availWidth)),
-        r = Math.floor(Math.random() * (256)),
-        g = Math.floor(Math.random() * (256)),
-        b = Math.floor(Math.random() * (256)),
-        c = '#' + r.toString(16) + g.toString(16) + b.toString(16),
-        dragDiv = document.createElement('div').classList.add('draggable-div'),
-        styles = {
+    const sizeHeight = Math.round(Math.random() * (window.screen.availHeight));
+    const sizeWidth = Math.round(Math.random() * (window.screen.availWidth));
+    const positionY = Math.round(Math.random() * (window.screen.availHeight));
+    const positionX = Math.round(Math.random() * (window.screen.availWidth));
+    const getRandomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16);
+    const dragDiv = document.createElement('div').classList.add('draggable-div');
+    const styles = {
             position: 'absolute',
             left: positionX + 'px',
             top: positionY + 'px',
-            width: sizeX + 'px',
-            height: sizeY + 'px',
-            backgroundColor: c
+            width: sizeWidth + 'px',
+            height: sizeHeight + 'px',
+            backgroundColor: getRandomColor()
         };
 
-   
     for (let el in styles) {
         dragDiv.style[el] = styles[el];
     }
 
     return dragDiv;
 }
-
+createDiv();
 /*
  Функция должна добавлять обработчики событий для перетаскивания элемента при помощи drag and drop
 
