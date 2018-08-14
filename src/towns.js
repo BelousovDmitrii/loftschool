@@ -28,7 +28,6 @@
    const newDiv = document.createElement('div');
    homeworkContainer.appendChild(newDiv);
  */
-const homeworkContainer = document.querySelector('#homework-container');
 
 /*
  Функция должна вернуть Promise, который должен быть разрешен с массивом городов в качестве значения
@@ -37,7 +36,27 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
+    return new Promise((resolve) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
+            xhr.responseType = 'json';
+            xhr.send();
+            xhr.addEventListener('load', () => {
+                resolve(xhr.response.sort(function (a, b) {
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+                    return 0;
+                }));
+            });
+        }
+    );
 }
+
+loadTowns();
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
@@ -51,7 +70,14 @@ function loadTowns() {
    isMatching('Moscow', 'Moscov') // false
  */
 function isMatching(full, chunk) {
+    if (full.toLowerCase().indexOf(chunk.toLowerCase()) !== -1) {
+        return true;
+    } else {
+        return false;
+    }
 }
+
+const homeworkContainer = document.querySelector('#homework-container');
 
 /* Блок с надписью "Загрузка" */
 const loadingBlock = homeworkContainer.querySelector('#loading-block');
@@ -62,8 +88,24 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
-filterInput.addEventListener('keyup', function() {
-    // это обработчик нажатия кливиш в текстовом поле
+let cities = [];
+
+loadTowns()
+    .then(res => {
+        cities = res;
+        loadingBlock.style.display = 'none';
+        filterBlock.style.display = 'block';
+    });
+
+filterInput.addEventListener('keyup', function () {
+    if(filterInput.value){
+        filterResult.innerHTML = cities
+            .filter(item => isMatching(item.name, filterInput.value))
+            .map(item => '<li>' + `${item.name}` + '</li>')
+            .join('')
+    } else {
+        filterResult.innerHTML = '';
+    }
 });
 
 export {
