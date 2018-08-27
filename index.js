@@ -32,7 +32,6 @@ vkAuth()
         return callAPI('friends.get', { fields: 'photo_100' })
     })
     .then(friends => {
-        console.log(friends);
         const template = document.querySelector('#friends-template').textContent;
         const render = Handlebars.compile(template);
         const vkFriendList = document.querySelector('#friends-list__vk');
@@ -40,18 +39,28 @@ vkAuth()
         const friendsItemsVK = { items: [] };
         const friendsItemsNew = { items: [] };
         const cookieList = getCookieList();
-        console.log(cookieList);
 
         friends.items.filter((item) => {
             for (let cookie in cookieList) {
                 if (item.id === +cookieList[cookie]) {
-                    console.log(item);
                     friendsItemsNew.items.push(item);
                 }
             }
 
             friendsItemsVK.items.push(item);
         });
+
+        for (let i = 0; i < friendsItemsVK.items.length; i++) {
+            for (let cookie in cookieList) {
+                if(i == friendsItemsVK.items.length -1 ){
+                    friendsItemsVK.items.pop();
+                    break;
+                }
+                if (friendsItemsVK.items[i].id === +cookieList[cookie]) {
+                    friendsItemsVK.items.splice(i, 1);
+                }
+            }
+        }
 
         console.log(friendsItemsVK.items);
         console.log(friendsItemsNew.items);
@@ -155,12 +164,12 @@ function DragAndDrop() {
         if (currentZone) {
             const zone = getCurrentZone(e.target);
 
-            iconChange(currentZone.node);
 
             e.preventDefault();
 
             if (zone && currentZone.startZone !== zone) {
                 if (e.target.classList.contains('friends-list__item')) {
+                    iconChange(currentZone.node);
                     zone.insertBefore(currentZone.node, e.target.nextElementSibling);
                 } else {
                     zone.insertBefore(currentZone.node, zone.lastElementChild);
@@ -224,17 +233,19 @@ function filter(inputId, zoneId) {
     const input = document.querySelector('#' + inputId);
 
     input.addEventListener('keyup', (e) => {
-        for(let item in zone.children){
-            if(e.target.value){
-                if(!(isMatching(zone.children[item].children[1].textContent, e.target.value))){
+        for (let item in zone.children) {
+            if (e.target.value) {
+                if (!(isMatching(zone.children[item].children[1].textContent, e.target.value))) {
                     zone.children[item].style.display = 'none';
-                } else{
+                } else {
                     zone.children[item].style.display = 'flex';
                 }
+            } else {
+                zone.children[item].style.display = 'flex';
             }
         }
     });
 }
 
-filter('input-filter-new','friends-list__new');
-filter('input-filter-vk','friends-list__vk');
+filter('input-filter-new', 'friends-list__new');
+filter('input-filter-vk', 'friends-list__vk');
