@@ -62,9 +62,6 @@ vkAuth()
             }
         }
 
-        console.log(friendsItemsVK.items);
-        console.log(friendsItemsNew.items);
-
         vkFriendList.innerHTML = render(friendsItemsVK);
         newFriendList.innerHTML = render(friendsItemsNew);
 
